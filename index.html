@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automate | Smart Home Catalogue</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#111823;
+      --panel-2:#16202c;
+      --card:#ffffff;
+      --muted:#8ea0b5;
+      --text:#eaf1f8;
+      --dark:#0d1117;
+      --line:rgba(255,255,255,.08);
+      --accent:#73e0c1;
+      --accent-2:#8ab4ff;
+      --gold:#d8b46b;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(115,224,193,.10), transparent 28%),
+        radial-gradient(circle at top right, rgba(138,180,255,.12), transparent 22%),
+        linear-gradient(180deg, #0a0f15 0%, #0d141d 100%);
+      color:var(--text);
+      line-height:1.45;
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    .wrap{
+      width:min(1200px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .hero{
+      padding:56px 0 28px;
+    }
+
+    .hero-card{
+      background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:32px;
+      padding:38px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:auto -80px -80px auto;
+      width:280px;
+      height:280px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(115,224,193,.18), transparent 68%);
+      pointer-events:none;
+    }
+
+    .brand{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#071018;
+      display:grid;
+      place-items:center;
+      font-weight:800;
+      letter-spacing:.04em;
+      box-shadow:0 10px 24px rgba(115,224,193,.25);
+    }
+
+    .brand-name{
+      font-size:13px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#dbe8f5;
+      font-weight:700;
+    }
+
+    h1{
+      margin:0 0 12px;
+      font-size:clamp(34px, 6vw, 64px);
+      line-height:1;
+      letter-spacing:-.03em;
+    }
+
+    .sub{
+      color:var(--muted);
+      font-size:18px;
+      max-width:760px;
+      margin-bottom:22px;
+    }
+
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:22px;
+    }
+
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:#d9e7f5;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    .section{
+      padding:18px 0 10px;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:16px;
+      margin:18px 0 18px;
+    }
+
+    .section h2{
+      margin:0;
+      font-size:30px;
+      letter-spacing:-.02em;
+    }
+
+    .section p.lead{
+      margin:4px 0 0;
+      color:var(--muted);
+      max-width:720px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:18px;
+    }
+
+    @media (max-width: 980px){
+      .grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+    }
+
+    @media (max-width: 640px){
+      .hero-card{padding:24px}
+      .grid{grid-template-columns:1fr}
+      .section h2{font-size:24px}
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(250,252,255,.96));
+      color:#0f1722;
+      border-radius:var(--radius);
+      overflow:hidden;
+      border:1px solid rgba(12,18,28,.08);
+      box-shadow:0 18px 40px rgba(3,10,20,.18);
+      display:flex;
+      flex-direction:column;
+      min-height:100%;
+    }
+
+    .media{
+      height:220px;
+      position:relative;
+      padding:18px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-start;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,.9), transparent 30%),
+        linear-gradient(135deg, #eff6ff, #e8f2ef 40%, #f6efe7 100%);
+    }
+
+    .media::after{
+      content:"";
+      position:absolute;
+      right:-30px;
+      top:-30px;
+      width:180px;
+      height:180px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(138,180,255,.22), transparent 60%);
+    }
+
+    .device-art{
+      position:relative;
+      z-index:2;
+      display:grid;
+      place-items:center;
+      width:100%;
+      height:100%;
+      border-radius:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.08));
+      border:1px solid rgba(255,255,255,.6);
+      backdrop-filter: blur(6px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+      font-size:84px;
+    }
+
+    .badge{
+      position:absolute;
+      top:16px;
+      left:16px;
+      z-index:3;
+      background:rgba(7,16,24,.82);
+      color:#eff7ff;
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .content{
+      padding:20px 20px 18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      flex:1;
+    }
+
+    .topline{
+      display:flex;
+      align-items:start;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .title{
+      margin:0;
+      font-size:22px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+
+    .vendor{
+      margin:4px 0 0;
+      color:#566578;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .price{
+      white-space:nowrap;
+      text-align:right;
+    }
+
+    .price strong{
+      display:block;
+      font-size:22px;
+      letter-spacing:-.03em;
+    }
+
+    .price span{
+      color:#6b7a8b;
+      font-size:12px;
+    }
+
+    .desc{
+      color:#38475a;
+      font-size:15px;
+      margin:0;
+    }
+
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .tag{
+      background:#eef4fa;
+      color:#304355;
+      border-radius:999px;
+      padding:7px 10px;
+      font-size:12px;
+      font-weight:600;
+    }
+
+    .checks{
+      display:grid;
+      gap:10px;
+      margin-top:2px;
+      padding-top:6px;
+      border-top:1px solid rgba(15,23,34,.08);
+    }
+
+    .check{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      font-size:14px;
+      color:#223244;
+    }
+
+    .check input{
+      margin-top:3px;
+      transform:scale(1.15);
+      accent-color:#0f1722;
+    }
+
+    .actions{
+      margin-top:auto;
+      display:flex;
+      gap:10px;
+      padding-top:4px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:11px 14px;
+      border-radius:14px;
+      font-weight:700;
+      font-size:14px;
+      transition:.2s ease;
+      border:1px solid rgba(15,23,34,.08);
+    }
+
+    .btn.primary{
+      background:#0f1722;
+      color:#fff;
+    }
+
+    .btn.secondary{
+      background:#f5f8fb;
+      color:#1b2a3a;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .summary{
+      margin:28px 0 8px;
+      padding:24px;
+      border-radius:24px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+    }
+
+    .summary-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:20px;
+      align-items:start;
+    }
+
+    @media (max-width: 800px){
+      .summary-grid{grid-template-columns:1fr}
+    }
+
+    .summary h3{
+      margin:0 0 10px;
+      font-size:24px;
+      letter-spacing:-.02em;
+    }
+
+    .summary p{
+      margin:0 0 14px;
+      color:var(--muted);
+    }
+
+    .note{
+      font-size:13px;
+      color:#9db1c7;
+    }
+
+    .footer{
+      padding:24px 0 50px;
+      color:#8ea0b5;
+      font-size:14px;
+    }
+
+    .smallcaps{
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:12px;
+      color:#aac1d8;
+      margin-bottom:8px;
+      display:block;
+    }
+
+    .totals{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:18px;
+    }
+
+    .totals .row{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      color:#e8f1fa;
+    }
+
+    .totals .row:last-child{border-bottom:none}
+    .totals .row.total{
+      font-weight:800;
+      font-size:18px;
+      color:#fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <div class="brand-name">Automate</div>
+        </div>
+        <h1>Private smart homes.<br>Beautifully integrated.</h1>
+        <div class="sub">
+          Vendor-neutral home automation for modern homes and new builds. Local-first systems built around Home Assistant, Zigbee and Matter — designed to keep working without cloud lock-in.
+        </div>
+        <div class="pill-row">
+          <div class="pill">Local-first</div>
+          <div class="pill">Vendor-neutral</div>
+          <div class="pill">Home Assistant</div>
+          <div class="pill">Zigbee / Matter</div>
+          <div class="pill">New build ready</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Buyer selection catalogue</h2>
+          <p class="lead">Select the products and services you want included in your smart home package. Prices below are dummy guide prices for concept presentation only.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="media">
+            <div class="badge">Lighting</div>
+            <div class="device-art">
+              <img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-out;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://www.assets.signify.com/is/image/Signify/8720169364226-929003853601-Hue-WCA-1600-A67-E27-1P-EU-RTP?wid=1280&amp;hei=960&amp;qlt=82" width="150" height="150">
+            </div>
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Hue White & Colour Ambiance E27</h3>
+                <div class="vendor">Philips Hue</div>
+              </div>
+              <div class="price">
+                <strong>£49</strong>
+                <span>dummy price / bulb</span>
+              </div>
+            </div>
+            <p class="desc">Premium smart bulb option for feature rooms, scene lighting and voice/app control.</p>
+            <div class="tags">
+              <span class="tag">Colour</span>
+              <span class="tag">Scenes</span>
+              <span class="tag">Zigbee</span>
+              <span class="tag">High-end</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> Add to lounge / kitchen</label>
+              <label class="check"><input type="checkbox"> Add colour scenes</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="https://www.philips-hue.com/en-gb/p/hue-white-and-colour-ambiance-a60-e27-smart-bulb-1100/8719514291171" target="_blank" rel="noopener">View source</a>
+              <a class="btn secondary" href="#summary">Add to build plan</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <div class="badge">Blinds</div>
+            <div class="device-art">
+              <img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://m.media-amazon.com/images/I/71D3AtpGV0L._AC_SL1500_.jpg" width="150" height="150">
+            </div>
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Smart & Electric Blinds</h3>
+                <div class="vendor">IKEA</div>
+              </div>
+              <div class="price">
+                <strong>£229</strong>
+                <span>dummy price / window</span>
+              </div>
+            </div>
+            <p class="desc">Automated privacy and daylight control for bedrooms and living spaces with scheduled opening and closing.</p>
+            <div class="tags">
+              <span class="tag">Privacy</span>
+              <span class="tag">Sunrise</span>
+              <span class="tag">App control</span>
+              <span class="tag">New build</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> Bedroom blinds</label>
+              <label class="check"><input type="checkbox"> Whole-house schedule</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="https://www.ikea.com/gb/en/cat/electric-blinds-44531/" target="_blank" rel="noopener">View source</a>
+              <a class="btn secondary" href="#summary">Add to build plan</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <div class="badge">Entry</div>
+            <div class="device-art"><img style="display: block;-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;"  src="https://yalehome.co.uk/media/catalog/product/e/0/e0c529b140e231deb65051faf2eb8aefd4886b76991c2159dd4c5a67096daa44.png?optimize=low&amp;fit=bounds&amp;height=&amp;width=&amp;format=jpeg" width="150" height="150"></div>
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Linus L2 Smart Lock</h3>
+                <div class="vendor">Yale</div>
+              </div>
+              <div class="price">
+                <strong>£279</strong>
+                <span>dummy price / door</span>
+              </div>
+            </div>
+            <p class="desc">Secure keyless entry with app control, guest access and automation options for arrival and away modes.</p>
+            <div class="tags">
+              <span class="tag">Keyless</span>
+              <span class="tag">Guest access</span>
+              <span class="tag">Entry automation</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> Front door lock</label>
+              <label class="check"><input type="checkbox"> Guest access keypad</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="https://yalehome.co.uk/smart-locks/linus-smart-lock/" target="_blank" rel="noopener">View source</a>
+              <a class="btn secondary" href="#summary">Add to build plan</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <div class="badge">Climate</div>
+            <div class="device-art">
+              <div class="media-panel">
+                <img style="display: block;-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;"  src="https://shop.tado.com/cdn/shop/files/smart_thermostat_x_product_app_1x1_0921_00_1.webp?v=1762160038&amp;width=1946" width="200" height="200">
+              </div>
+            </div>
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Smart Thermostat X</h3>
+                <div class="vendor">tado°</div>
+              </div>
+              <div class="price">
+                <strong>£199</strong>
+                <span>dummy price / zone</span>
+              </div>
+            </div>
+            <p class="desc">Clean thermostat control for heating zones, energy saving schedules and occupancy-aware comfort settings.</p>
+            <div class="tags">
+              <span class="tag">Matter</span>
+              <span class="tag">Thread-ready</span>
+              <span class="tag">Heating zones</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> Downstairs zone</label>
+              <label class="check"><input type="checkbox"> Multi-room heating</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="https://shop.tado.com/en-gb/products/smart-thermostat-x-wired" target="_blank" rel="noopener">View source</a>
+              <a class="btn secondary" href="#summary">Add to build plan</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <div class="badge">Security</div>
+              <img style="display: block;-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;"   src="https://community-assets.home-assistant.io/original/4X/2/0/b/20bb1565a55b2bd4234eece9ad42d6eed1e604fd.jpeg" width="200" height="200">
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Door / Window Sensors</h3>
+                <div class="vendor">Vendor-neutral sensor layer</div>
+              </div>
+              <div class="price">
+                <strong>£29</strong>
+                <span>dummy price / sensor</span>
+              </div>
+            </div>
+            <p class="desc">Discreet contact sensors for security, heating logic and lighting automations throughout the property.</p>
+            <div class="tags">
+              <span class="tag">Security</span>
+              <span class="tag">Presence logic</span>
+              <span class="tag">Zigbee</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> Front / rear doors</label>
+              <label class="check"><input type="checkbox"> Ground floor windows</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="#summary">Select option</a>
+              <a class="btn secondary" href="#summary">Add to build plan</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <div class="badge">Control</div>
+            <div class="device-art">
+              <img style="display: block;-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://smarthomescene.com/wp-content/uploads/2023/09/home-assistant-more-info-browser-mod-mushroom-chips-card-categories-popup.jpg.webp" width="200" height="200">
+            </div>
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Automate Control Interface</h3>
+                <div class="vendor">Home Assistant based</div>
+              </div>
+              <div class="price">
+                <strong>£699</strong>
+                <span>dummy setup price</span>
+              </div>
+            </div>
+            <p class="desc">Unified mobile control, dashboards, room scenes and a tailored local-first interface across the whole property.</p>
+            <div class="tags">
+              <span class="tag">Local</span>
+              <span class="tag">Dashboard</span>
+              <span class="tag">No lock-in</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> iPhone / Android control</label>
+              <label class="check"><input type="checkbox"> Wall tablet dashboard</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="#summary">Select option</a>
+              <a class="btn secondary" href="#summary">Add to build plan</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="summary" id="summary">
+      <div class="summary-grid">
+        <div>
+          <span class="smallcaps">Automate proposal concept</span>
+          <h3>Designed for buyers, developers and new-build upgrades</h3>
+          <p>
+            This page is intentionally styled as a premium concept catalogue: simple enough for a buyer to browse, but credible enough for a developer partner to use as an early options sheet.
+          </p>
+          <p>
+            You can duplicate cards, add room-by-room bundles, or expand it into a proper configurator with estimated totals, pre-wire packages and developer upgrade tiers.
+          </p>
+          <div class="note">
+            Dummy prices shown for presentation only. Replace with your own package rates, margin and installation costs.
+          </div>
+        </div>
+        <div class="totals">
+          <div class="row"><span>Starter lighting package</span><strong>from £1,490</strong></div>
+          <div class="row"><span>Blinds package</span><strong>from £2,290</strong></div>
+          <div class="row"><span>Security + smart entry</span><strong>from £1,650</strong></div>
+          <div class="row"><span>Climate control</span><strong>from £1,200</strong></div>
+          <div class="row total"><span>Illustrative full-home package</span><strong>£6,630</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Automate • Vendor-neutral smart homes • Local-first systems • Home Assistant / Zigbee / Matter
+    </footer>
+  </div>
+</body>
+</html>

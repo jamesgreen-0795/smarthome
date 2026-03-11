@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automate x Persimmon Homes | Smart Home Upgrades</title>
+  <style>
+    :root{
+      --ph-green:#005941;
+      --ph-green-2:#0d6b55;
+      --ph-green-3:#1f7d65;
+      --ph-cream:#f6f3ec;
+      --ph-warm:#f2b544;
+      --ph-orange:#e6813d;
+      --ink:#183127;
+      --ink-soft:#4b6459;
+      --line:#d8e3dc;
+      --white:#ffffff;
+      --shadow:0 18px 50px rgba(0,0,0,.10);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(230,129,61,.10), transparent 18%),
+        radial-gradient(circle at top left, rgba(242,181,68,.12), transparent 20%),
+        linear-gradient(180deg, #f7f5ef 0%, #f3f1ea 100%);
+      line-height:1.45;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    .wrap{
+      width:min(1220px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .hero{
+      padding:34px 0 24px;
+    }
+
+    .hero-card{
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.86)),
+        linear-gradient(135deg, var(--ph-green), var(--ph-green-2));
+      border:1px solid rgba(0,89,65,.10);
+      border-radius:32px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      position:relative;
+    }
+
+    .hero-top{
+      display:flex;
+      justify-content:space-between;
+      gap:24px;
+      padding:26px 28px 0;
+      flex-wrap:wrap;
+    }
+
+    .brand-lockup{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .brand-mark{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      background:linear-gradient(135deg, var(--ph-green), var(--ph-green-3));
+      display:grid;
+      place-items:center;
+      color:#fff;
+      box-shadow:0 10px 24px rgba(0,89,65,.20);
+      flex:0 0 auto;
+    }
+
+    .brand-mark svg{
+      width:32px;
+      height:32px;
+    }
+
+    .brand-copy small{
+      display:block;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--ink-soft);
+      margin-bottom:4px;
+      font-weight:700;
+    }
+
+    .brand-copy strong{
+      display:block;
+      font-size:20px;
+      letter-spacing:-.02em;
+    }
+
+    .client-badge{
+      align-self:flex-start;
+      background:#eef5f1;
+      color:var(--ph-green);
+      border:1px solid #d7e7df;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .hero-main{
+      padding:18px 28px 30px;
+      display:grid;
+      grid-template-columns:1.4fr .8fr;
+      gap:24px;
+      align-items:end;
+    }
+
+    .hero-main h1{
+      margin:0 0 12px;
+      font-size:clamp(34px, 5vw, 62px);
+      line-height:.98;
+      letter-spacing:-.04em;
+      max-width:760px;
+    }
+
+    .hero-main p{
+      margin:0;
+      color:var(--ink-soft);
+      font-size:18px;
+      max-width:760px;
+    }
+
+    .hero-panel{
+      background:linear-gradient(180deg, var(--ph-green), #0c4c3a);
+      color:#fff;
+      border-radius:28px;
+      padding:22px;
+      min-height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .hero-panel .eyebrow{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      opacity:.8;
+      margin-bottom:10px;
+      display:block;
+    }
+
+    .hero-panel h3{
+      margin:0 0 10px;
+      font-size:24px;
+      line-height:1.08;
+      letter-spacing:-.03em;
+    }
+
+    .hero-panel p{
+      color:rgba(255,255,255,.85);
+      font-size:15px;
+      margin:0 0 18px;
+    }
+
+    .mini-pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .mini-pills span{
+      display:inline-block;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:12px;
+      font-weight:600;
+    }
+
+    .pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      padding:0 28px 26px;
+    }
+
+    .pill{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:14px;
+      color:var(--ink);
+      font-weight:600;
+    }
+
+    .section{
+      padding:14px 0 4px;
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:20px;
+      margin:18px 0 18px;
+    }
+
+    .section-head h2{
+      margin:0;
+      font-size:32px;
+      letter-spacing:-.03em;
+    }
+
+    .section-head p{
+      margin:6px 0 0;
+      color:var(--ink-soft);
+      max-width:760px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    @media (max-width: 1020px){
+      .hero-main{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    @media (max-width: 700px){
+      .wrap{width:min(100% - 20px, 1220px)}
+      .hero-top,.hero-main,.pills{padding-left:18px;padding-right:18px}
+      .grid{grid-template-columns:1fr}
+      .section-head h2{font-size:26px}
+    }
+
+    .card{
+      background:var(--white);
+      border-radius:var(--radius);
+      overflow:hidden;
+      border:1px solid rgba(0,89,65,.10);
+      box-shadow:0 12px 30px rgba(16,38,29,.08);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .media{
+      height:220px;
+      position:relative;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.95), transparent 30%),
+        linear-gradient(135deg, #f9f6ef, #edf5f0 48%, #fdf7ee 100%);
+      padding:16px;
+    }
+
+    .media-panel{
+      width:100%;
+      height:100%;
+      border-radius:18px;
+      border:1px solid rgba(0,89,65,.08);
+      background:linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.45));
+      display:grid;
+      place-items:center;
+      color:var(--ph-green);
+      font-size:84px;
+    }
+
+    .badge{
+      position:absolute;
+      top:16px;
+      left:16px;
+      z-index:2;
+      background:var(--ph-green);
+      color:#fff;
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .content{
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      flex:1;
+    }
+
+    .topline{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:start;
+    }
+
+    .title{
+      margin:0;
+      font-size:22px;
+      line-height:1.1;
+      letter-spacing:-.02em;
+    }
+
+    .vendor{
+      margin-top:5px;
+      color:var(--ink-soft);
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .price{
+      text-align:right;
+      white-space:nowrap;
+    }
+
+    .price strong{
+      display:block;
+      font-size:22px;
+      color:var(--ph-green);
+      letter-spacing:-.03em;
+    }
+
+    .price span{
+      display:block;
+      font-size:12px;
+      color:#7a8f85;
+    }
+
+    .desc{
+      margin:0;
+      color:#375448;
+      font-size:15px;
+    }
+
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .tag{
+      padding:7px 10px;
+      border-radius:999px;
+      background:#eef5f1;
+      color:var(--ph-green);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .checks{
+      display:grid;
+      gap:10px;
+      padding-top:8px;
+      border-top:1px solid #e6efea;
+      margin-top:2px;
+    }
+
+    .check{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:#244237;
+      font-size:14px;
+    }
+
+    .check input{
+      transform:scale(1.15);
+      margin-top:3px;
+      accent-color:var(--ph-green);
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      margin-top:auto;
+      padding-top:4px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:14px;
+      padding:11px 14px;
+      font-size:14px;
+      font-weight:700;
+      transition:.2s ease;
+      border:1px solid transparent;
+    }
+
+    .btn:hover{transform:translateY(-1px)}
+
+    .btn.primary{
+      background:var(--ph-green);
+      color:#fff;
+    }
+
+    .btn.secondary{
+      background:#fff;
+      color:var(--ph-green);
+      border-color:#d9e7df;
+    }
+
+    .summary{
+      margin:28px 0 10px;
+      background:linear-gradient(135deg, var(--ph-green), #0b4c3a);
+      color:#fff;
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .summary-inner{
+      padding:26px;
+      display:grid;
+      grid-template-columns:1.3fr .9fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    @media (max-width: 860px){
+      .summary-inner{grid-template-columns:1fr}
+    }
+
+    .summary small{
+      display:block;
+      margin-bottom:8px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      opacity:.82;
+    }
+
+    .summary h3{
+      margin:0 0 10px;
+      font-size:30px;
+      line-height:1.02;
+      letter-spacing:-.03em;
+    }
+
+    .summary p{
+      margin:0 0 12px;
+      color:rgba(255,255,255,.86);
+    }
+
+    .totals{
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:22px;
+      padding:16px 18px;
+    }
+
+    .totals .row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      font-size:15px;
+    }
+
+    .totals .row:last-child{border-bottom:none}
+    .totals .row.total{
+      font-size:18px;
+      font-weight:800;
+      color:#fff7e8;
+    }
+
+    .disclaimer{
+      margin-top:14px;
+      font-size:13px;
+      color:rgba(255,255,255,.76);
+    }
+
+    .footer{
+      padding:20px 0 42px;
+      color:#60786d;
+      font-size:14px;
+    }
+
+    .logo-slot{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:16px;
+      background:#f3f7f4;
+      border:1px dashed #bfd4c8;
+      color:#567167;
+      font-size:13px;
+    }
+
+    .logo-slot code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:12px;
+      color:#29493e;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="hero-top">
+          <div class="brand-lockup">
+            <div class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 11.2 12 4l8 7.2V20H4v-8.8Z" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M9 20v-5h6v5" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+            </div>
+            <div class="brand-copy">
+              <small>Automate proposal</small>
+              <strong>Smart home upgrades for Persimmon Homes developments</strong>
+            </div>
+          </div>
+
+          <div class="client-badge">Styled for Persimmon Homes</div>
+        </div>
+
+        <div class="hero-main">
+          <div>
+            <h1>Modern smart home upgrades that feel built in from day one.</h1>
+            <p>
+              A buyer-friendly upgrade catalogue for new-build homes: smart lighting, blinds, locks, climate and security — all designed around local-first automation, no lock-in, and a clean homeowner experience.
+            </p>
+
+            <div class="logo-slot">
+              <img style="display: block;-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://www.persimmonhomes.com/media/os0ly03c/persimmon-logo-2022.png">
+            </div>
+          </div>
+
+          <aside class="hero-panel">
+            <div>
+              <span class="eyebrow">Why this works for a housebuilder</span>
+              <h3>Simple upgrade choices buyers can understand.</h3>
+              <p>
+                “smart home finishing touches” offer with clear packages, room-by-room add-ons and illustrative pricing.
+              </p>
+            </div>
+            <div class="mini-pills">
+              <span>Vendor-neutral</span>
+              <span>Local-first</span>
+              <span>Home Assistant</span>
+              <span>Zigbee / Matter</span>
+            </div>
+          </aside>
+        </div>
+
+        <div class="pills">
+          <div class="pill">Buyer upgrade catalogue</div>
+          <div class="pill">New-build ready</div>
+          <div class="pill">No cloud lock-in</div>
+          <div class="pill">Private & local</div>
+          <div class="pill">Installation packages</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Smart home upgrade options</h2>
+          <p>
+            Select the products and services you want included in the proposed smart home package. Prices below are dummy guide prices for concept presentation only.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="media">
+            <div class="badge">Lighting</div>
+            <div class="media-panel">
+              <img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-out;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://www.assets.signify.com/is/image/Signify/8720169364226-929003853601-Hue-WCA-1600-A67-E27-1P-EU-RTP?wid=1280&amp;hei=960&amp;qlt=82" width="150" height="150">
+            </div>
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Hue White & Colour Ambiance E27</h3>
+                <div class="vendor">Philips Hue</div>
+              </div>
+              <div class="price">
+                <strong>£49</strong>
+                <span>dummy price / bulb</span>
+              </div>
+            </div>
+            <p class="desc">Premium feature lighting for kitchens, lounges and principal bedrooms with scenes, dimming and app control.</p>
+            <div class="tags">
+              <span class="tag">Zigbee</span>
+              <span class="tag">Colour scenes</span>
+              <span class="tag">Upgrade option</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> Add to kitchen / living</label>
+              <label class="check"><input type="checkbox"> Include scene setup</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="https://www.philips-hue.com/en-gb/p/hue-white-and-colour-ambiance-a60-e27-smart-bulb-1100/8719514291171" target="_blank" rel="noopener">View product source</a>
+              <a class="btn secondary" href="#summary">Add to package</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <div class="badge">Blinds</div>
+            <div class="media-panel">
+              <img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://m.media-amazon.com/images/I/71D3AtpGV0L._AC_SL1500_.jpg" width="150" height="150">
+            </div>
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Electric Smart Blinds</h3>
+                <div class="vendor">SmartBlinds / vendor-neutral blind option</div>
+              </div>
+              <div class="price">
+                <strong>£229</strong>
+                <span>dummy price / window</span>
+              </div>
+            </div>
+            <p class="desc">Automated privacy and daylight control for bedrooms and living spaces with timed open and close routines.</p>
+            <div class="tags">
+              <span class="tag">Privacy</span>
+              <span class="tag">Sunrise routines</span>
+              <span class="tag">Buyer upgrade</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> Bedrooms only</label>
+              <label class="check"><input type="checkbox"> Whole-home blind schedule</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="https://www.ikea.com/gb/en/cat/electric-blinds-44531/" target="_blank" rel="noopener">View product source</a>
+              <a class="btn secondary" href="#summary">Add to package</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <div class="badge">Smart Entry</div>
+            <div class="media-panel">
+              <img style="display: block;-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;"  src="https://yalehome.co.uk/media/catalog/product/e/0/e0c529b140e231deb65051faf2eb8aefd4886b76991c2159dd4c5a67096daa44.png?optimize=low&amp;fit=bounds&amp;height=&amp;width=&amp;format=jpeg" width="150" height="150">
+            </div>
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Linus L2 Smart Lock</h3>
+                <div class="vendor">Yale</div>
+              </div>
+              <div class="price">
+                <strong>£279</strong>
+                <span>dummy price / door</span>
+              </div>
+            </div>
+            <p class="desc">Secure keyless entry with homeowner app control, temporary access and automation options for arrival and away modes.</p>
+            <div class="tags">
+              <span class="tag">Keyless entry</span>
+              <span class="tag">Guest access</span>
+              <span class="tag">Upgrade option</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> Front door only</label>
+              <label class="check"><input type="checkbox"> Add guest keypad</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="https://yalehome.co.uk/smart-locks/linus-smart-lock/" target="_blank" rel="noopener">View product source</a>
+              <a class="btn secondary" href="#summary">Add to package</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <div class="badge">Climate</div>
+            <div class="media-panel">
+              <img style="display: block;-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;"  src="https://shop.tado.com/cdn/shop/files/smart_thermostat_x_product_app_1x1_0921_00_1.webp?v=1762160038&amp;width=1946" width="200" height="200">
+            </div>
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Smart Thermostat X</h3>
+                <div class="vendor">tado°</div>
+              </div>
+              <div class="price">
+                <strong>£199</strong>
+                <span>dummy price / zone</span>
+              </div>
+            </div>
+            <p class="desc">Clean thermostat control for heating zones, timed comfort and energy-aware routines for everyday living.</p>
+            <div class="tags">
+              <span class="tag">Heating zones</span>
+              <span class="tag">Matter-ready</span>
+              <span class="tag">Buyer option</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> Ground floor zone</label>
+              <label class="check"><input type="checkbox"> Whole-home control</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="https://shop.tado.com/en-gb/products/smart-thermostat-x-wired" target="_blank" rel="noopener">View product source</a>
+              <a class="btn secondary" href="#summary">Add to package</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <div class="badge">Security</div>
+            <div class="media-panel">
+              <img style="display: block;-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://community-assets.home-assistant.io/original/4X/2/0/b/20bb1565a55b2bd4234eece9ad42d6eed1e604fd.jpeg">
+            </div>
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Door & Window Sensors</h3>
+                <div class="vendor">Vendor-neutral sensor layer</div>
+              </div>
+              <div class="price">
+                <strong>£29</strong>
+                <span>dummy price / sensor</span>
+              </div>
+            </div>
+            <p class="desc">Discrete sensors for entry detection security and heating logic and intelligent automations across the home.</p>
+            <div class="tags">
+              <span class="tag">Security</span>
+              <span class="tag">Presence logic</span>
+              <span class="tag">Zigbee</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> Front / rear doors</label>
+              <label class="check"><input type="checkbox"> Ground-floor windows</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="#summary">Select option</a>
+              <a class="btn secondary" href="#summary">Add to package</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <div class="badge">Control</div>
+            <div class="media-panel">
+              <img style="display: block;-webkit-user-select: none;margin: auto;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://smarthomescene.com/wp-content/uploads/2023/09/home-assistant-more-info-browser-mod-mushroom-chips-card-categories-popup.jpg.webp" width="200" height="200">
+            </div>
+          </div>
+          <div class="content">
+            <div class="topline">
+              <div>
+                <h3 class="title">Automate Home Dashboard</h3>
+                <div class="vendor">Home Assistant based</div>
+              </div>
+              <div class="price">
+                <strong>£699</strong>
+                <span>dummy setup price</span>
+              </div>
+            </div>
+            <p class="desc">A single homeowner interface for scenes, rooms, schedules and whole-home control without ecosystem lock-in.</p>
+            <div class="tags">
+              <span class="tag">Local-first</span>
+              <span class="tag">No lock-in</span>
+              <span class="tag">App + tablet</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox"> Include in quote</label>
+              <label class="check"><input type="checkbox"> iPhone / Android access</label>
+              <label class="check"><input type="checkbox"> Wall tablet dashboard</label>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="#summary">Select option</a>
+              <a class="btn secondary" href="#summary">Add to package</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="summary" id="summary">
+      <div class="summary-inner">
+        <div>
+          <small>Concept summary</small>
+          <h3>A cleaner upgrade experience for buyers and site sales teams.</h3>
+          <p>
+            This concept is designed to sit naturally alongside a housebuilder upgrades journey: easy to understand, visually polished, and simple to price as optional extras.
+          </p>
+          <p>
+            It works especially well as a “smart home upgrades” page, a sales-suite tablet presentation, or a branded microsite for selected developments.
+          </p>
+          <div class="disclaimer">
+            Dummy prices shown for concept purposes only. Replace with your own supply, installation and margin assumptions before client use.
+          </div>
+        </div>
+
+        <div class="totals">
+          <div class="row"><span>Starter lighting package</span><strong>from £1,490</strong></div>
+          <div class="row"><span>Bedroom blind upgrade</span><strong>from £1,180</strong></div>
+          <div class="row"><span>Smart entry package</span><strong>from £950</strong></div>
+          <div class="row"><span>Heating control upgrade</span><strong>from £1,200</strong></div>
+          <div class="row total"><span>Illustrative smart-home package</span><strong>£4,820</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Automate proposal concept • Styled for Persimmon Homes opportunity • Vendor-neutral • Local-first smart home systems
+    </footer>
+  </div>
+</body>
+</html>
